@@ -13,6 +13,10 @@ using namespace std;
  ----------------------------------------------------------
 */
 
+//==============================================================================================
+//=================== v Kumpulan fungsi Linked List  ===========================================
+//==============================================================================================
+
 //linkedlist
 typedef float infoAngka;
 typedef char infoOp;
@@ -331,7 +335,7 @@ bool isEnd(int state){  // untuk mengecek apakah final state yang dicapai
   }
 }
 
-void kosongin_list(){
+void kosongin_list(){ //fungsi untuk mengosongkan list
   infoAngka x;
   infoOp y;
   while(!isEmptyA(list_Arimatika)){
@@ -348,7 +352,7 @@ void simpankata (string *x, char y){ // untuk menyimpan char yang terdeteksi
 }
 
 
-void simpanangka (char y){
+void simpanangka (char y){ //prosedur untuk menyimpan angka
    float x;
    deleteLastA(&list_Arimatika, &x);
    x = (10*(x)) + (y - '0');
@@ -356,7 +360,7 @@ void simpanangka (char y){
 }
 
 
-void simpanOP (char y){
+void simpanOP (char y){ //prosedur untuk menyimpan operator
     InsertLastO(&list_Operasi, y);
 }
 
@@ -365,19 +369,19 @@ float hasiloperasi(listAngka*AR, listOperasi*OP){
   char O;
 
   if(isEmptyO(*OP)){
-    deleteFirstA(&(*AR), &E);
+    deleteFirstA(&(*AR), &E); //basis rekursif
     return E;
   }else{
     if((*OP).firstO -> operasi == '+'){
       deleteFirstA(&(*AR), &E);
       deleteFirstO(&(*OP), &O);
 
-      return (E + hasiloperasi(&(*AR),&(*OP)));
+      return (E + hasiloperasi(&(*AR),&(*OP))); //rekurens untuk penjumlahan
     }else if((*OP).firstO -> operasi == '-'){
       deleteFirstA(&(*AR), &E);
       deleteFirstO(&(*OP), &O);
 
-      return (E - hasiloperasi(&(*AR),&(*OP)));
+      return (E - hasiloperasi(&(*AR),&(*OP)));//rekurens untuk pengurangan
 
     }else if((*OP).firstO -> operasi == '*'){
       deleteFirstA(&(*AR), &E);
@@ -388,7 +392,7 @@ float hasiloperasi(listAngka*AR, listOperasi*OP){
       InsertFirst(&(*AR), E);
       deleteFirstO(&(*OP), &O);
 
-      return (hasiloperasi(&(*AR),&(*OP)));
+      return (hasiloperasi(&(*AR),&(*OP)));//rekurens untuk perkalian
     }else{
       deleteFirstA(&(*AR), &E);
       deleteFirstA(&(*AR), &E2);
@@ -398,7 +402,7 @@ float hasiloperasi(listAngka*AR, listOperasi*OP){
       InsertFirst(&(*AR), E);
       deleteFirstO(&(*OP), &O);
 
-      return (hasiloperasi(&(*AR),&(*OP)));
+      return (hasiloperasi(&(*AR),&(*OP)));//rekurens untuk pembagian
     }
   }
 }
@@ -425,7 +429,7 @@ void FA(string x, bool *selesai){ //memanfaatkan tabel perpindahan state yang te
       if(!isEmptyO(list_Operasi) && list_Operasi.lastO->operasi == '-'){
         char temp_O;
         float temp = (list_Arimatika.lastA) -> angka;
-        (list_Arimatika.lastA) -> angka = temp * (-1);
+        (list_Arimatika.lastA) -> angka = temp * (-1); // 5-7 = 5+(-7)
         deleteLastO(&list_Operasi, &temp_O);
         simpanOP('+');
       }
@@ -445,7 +449,7 @@ void FA(string x, bool *selesai){ //memanfaatkan tabel perpindahan state yang te
     }
     else{
       kosongin_list();
-      cout << "> Ada kesalahan: spesifikasi tubes hanya terdapat operasi '+', '-', '*' dan '/' "<< endl;
+      cout << "> Ada kesalahan: spesifikasi tubes hanya terdapat operator '+', '-', '*' dan '/' "<< endl;
     }
     return;
   }else{
@@ -460,7 +464,7 @@ void FA(string x, bool *selesai){ //memanfaatkan tabel perpindahan state yang te
        cout << "> " << hasil << endl;
        kosongin_list();
       }
-    }         //jika bukan, maka mengoutputkan string inputan user
+    }         //jika bukan, maka mengoutputkan string atau hasil operasi inputan user
     return;
   }
 }
