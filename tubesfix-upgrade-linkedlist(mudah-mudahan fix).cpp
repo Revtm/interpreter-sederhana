@@ -250,6 +250,7 @@ void setFA(){
   matrix[6]['8'] = 18;
   matrix[6]['9'] = 18;
 
+  matrix[6]['-'] = 19;
 
   matrix[18]['('] = -2;
   matrix[18][')'] = -2;
@@ -281,6 +282,7 @@ void setFA(){
   matrix[19]['7'] = 20;
   matrix[19]['8'] = 20;
   matrix[19]['9'] = 20;
+
 
   matrix[20]['('] = -2;
   matrix[20][')'] = -2;
@@ -437,7 +439,10 @@ void FA(string x, bool *selesai){ //memanfaatkan tabel perpindahan state yang te
 
   if(isStuck(state) == true || isFinal(state) == false ){ // jika terjadii stuck atau tidak final
     kata = "\0";  //mengembalikan kata ke null            //ketika string ditelusuri,
-    if(state == -1) cout << "> Ada kesalahan: Kode tidak sesuai dengan peraturan"<< endl;
+    if(state == -1){
+      kosongin_list();
+      cout << "> Ada kesalahan: Kode tidak sesuai dengan peraturan"<< endl;
+    }
     else{
       kosongin_list();
       cout << "> Ada kesalahan: spesifikasi tubes hanya terdapat operasi '+', '-', '*' dan '/' "<< endl;
